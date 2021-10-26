@@ -81,6 +81,7 @@ export const phoneNumberValidatorSlice = createSlice({
   reducers: {
     changePhoneNumberValidationState: (state, action: PayloadAction<'valid' | 'invalid' | 'verifying'>) => {
       state.phoneNumberValidationStatus = action.payload;
+      state.message = '';
     },
     changePhoneNumberFetchingState: (state, action: PayloadAction<'loading' | 'error'>) => {
       state.fetchingStatus = action.payload;

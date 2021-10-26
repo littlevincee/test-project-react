@@ -80,6 +80,7 @@ export const emailValidatorSlice = createSlice({
   reducers: {
     changeEmailValidationState: (state, action: PayloadAction<'valid' | 'invalid' | 'verifying'>) => {
       state.emailValidationStatus = action.payload;
+      state.message = '';
     },
     changeEmailFetchingState: (state, action: PayloadAction<'loading' | 'error'>) => {
       state.fetchingStatus = action.payload;
