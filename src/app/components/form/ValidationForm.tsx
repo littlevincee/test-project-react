@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 import { CountryCodeList } from '../../shared/countryCode';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { verifyPhoneNumber, selectPhoneNumberValidator } from '../../redux/phoneNumberValidatorSlice/phoneNumberValidatorSlice';
-import { verifyEmail, selectEmailValidator } from '../../redux/emailValidatorSlice/emailValidatorSlice';
+import { changePhoneNumberValidationState, verifyPhoneNumber, selectPhoneNumberValidator } from '../../redux/phoneNumberValidatorSlice/phoneNumberValidatorSlice';
+import { changeEmailValidationState, verifyEmail, selectEmailValidator } from '../../redux/emailValidatorSlice/emailValidatorSlice';
 
 const { Option } = Select;
 
@@ -37,6 +37,11 @@ export const ValidationForm = ( ) =>{
     dispatch(verifyEmail({email}));
   }, [dispatch]);
 
+  const resetValidationState = useCallback(() => {
+    dispatch(changePhoneNumberValidationState('invalid'));
+    dispatch(changeEmailValidationState('invalid'));
+  }, [dispatch]);
+
   const onFinish = (values: any) => {
     const countryCodeInput = values.countryCode;
     const phoneNumberInput = values.phoneNumber;
@@ -59,6 +64,7 @@ export const ValidationForm = ( ) =>{
 
   const onReset = () => {
     form.resetFields();
+    resetValidationState();
   };
 
   const onHistorySelectChange = (value: number) => {

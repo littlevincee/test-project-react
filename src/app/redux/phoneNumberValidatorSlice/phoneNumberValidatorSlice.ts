@@ -3,7 +3,7 @@ import { RootState } from '../store';
 import axios, { AxiosRequestConfig } from 'axios';
 
 const apiDomain = process.env.REACT_APP_BACKEND_SERVER_DOMAIN || 'http://localhost:3001';
-const apiUri = `${apiDomain}/api/email-validator`;
+const apiUri = `${apiDomain}/api/phone-number-validator`;
 
 interface PhoneNumber {
   countryCode: string;
@@ -79,11 +79,11 @@ export const phoneNumberValidatorSlice = createSlice({
   name: 'phoneNumberValidatorState',
   initialState,
   reducers: {
-    changeValidationState: (state, action: PayloadAction<PhoneNumberValidatorState>) => {
-      state.phoneNumberValidationStatus = action.payload.phoneNumberValidationStatus;
+    changePhoneNumberValidationState: (state, action: PayloadAction<'valid' | 'invalid' | 'verifying'>) => {
+      state.phoneNumberValidationStatus = action.payload;
     },
-    changeFetchingState: (state, action: PayloadAction<PhoneNumberValidatorState>) => {
-      state.fetchingStatus = action.payload.fetchingStatus;
+    changePhoneNumberFetchingState: (state, action: PayloadAction<'loading' | 'error'>) => {
+      state.fetchingStatus = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -98,13 +98,13 @@ export const phoneNumberValidatorSlice = createSlice({
         state.phoneNumberValidationStatus = 'verifying';
       })
       .addCase(verifyPhoneNumber.fulfilled, (state, action) => {
-        state.phoneNumberValidationStatus = action.payload.isValid ? 'valid' : 'invalid';
+        state.phoneNumberValidationStatus = action.payload.isPhoneNumberValid ? 'valid' : 'invalid';
         state.message = action.payload.message;
       });
   }
 });
 
-export const { changeValidationState, changeFetchingState } = phoneNumberValidatorSlice.actions;
+export const { changePhoneNumberValidationState, changePhoneNumberFetchingState } = phoneNumberValidatorSlice.actions;
 
 export const selectPhoneNumberValidator = (state: RootState) => state.phoneNumberValidator;
 

@@ -78,11 +78,11 @@ export const emailValidatorSlice = createSlice({
   name: 'emailValidatorState',
   initialState,
   reducers: {
-    changeValidationState: (state, action: PayloadAction<EmailValidatorState>) => {
-      state.emailValidationStatus = action.payload.emailValidationStatus;
+    changeEmailValidationState: (state, action: PayloadAction<'valid' | 'invalid' | 'verifying'>) => {
+      state.emailValidationStatus = action.payload;
     },
-    changeFetchingState: (state, action: PayloadAction<EmailValidatorState>) => {
-      state.fetchingStatus = action.payload.fetchingStatus;
+    changeEmailFetchingState: (state, action: PayloadAction<'loading' | 'error'>) => {
+      state.fetchingStatus = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -103,7 +103,7 @@ export const emailValidatorSlice = createSlice({
   }
 });
 
-export const { changeValidationState, changeFetchingState } = emailValidatorSlice.actions;
+export const { changeEmailValidationState, changeEmailFetchingState } = emailValidatorSlice.actions;
 
 export const selectEmailValidator = (state: RootState) => state.emailValidator;
 
