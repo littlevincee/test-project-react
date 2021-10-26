@@ -1,0 +1,27 @@
+.title-container {
+  float: left;
+
+  h3 {
+    color: #fff;
+  }
+}
+
+.menu-container {
+
+}
+.menu {
+  float: right;
+
+  .menu-item {
+    .ant-menu-title-content{
+      color: #fff;
+    }
+
+    .icon-font {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+      font-size: 30px;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.form-page-container {
+  height: 90vh;
+
+  .result-container {
+    display: flex;
+    justify-content: center;
+
+    h1 {
+      font-size: 20px;
+      color: rgb(3, 3, 36);
+    }
+  }
+}
